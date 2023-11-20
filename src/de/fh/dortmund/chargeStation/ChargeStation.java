@@ -34,6 +34,7 @@ public class ChargeStation {
 			if (pqCar.isEmpty()) {
 				System.out.println("Slot is available and confirmed as there are no cars in the slot.");
 				pqCar.add(car);
+				addedToQueue = true;
 				break;
 			} else if (pqCar.size() == 1) {
 				WaitTimeData withinTime = checkwithinWaitTime(pqCar.peek(), car.getBookedTimeSlot());
@@ -46,6 +47,7 @@ public class ChargeStation {
 					System.out.println((pqCar.poll()).getNumber() + " Car is charged and removed");
 					System.out.println("Slot is confirmed for the car " + car.getNumber());
 					pqCar.add(car);
+					addedToQueue = true;
 				} else {
 					System.out.println("High Waiting Time, please try another location");
 					continue;
