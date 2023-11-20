@@ -6,13 +6,6 @@ public class EnergySource {
 	private String sourceName;
 	private String capacity;
 
-	public EnergySource(String id, String sourceName, String capacity) {
-
-		this.id = id;
-		this.sourceName = sourceName;
-		this.capacity = capacity;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -23,6 +16,18 @@ public class EnergySource {
 
 	public String getCapacity() {
 		return capacity;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setSourceName(String sourceName) {
+		this.sourceName = sourceName;
+	}
+
+	public void setCapacity(String capacity) {
+		this.capacity = capacity;
 	}
 
 }

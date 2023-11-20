@@ -1,20 +1,16 @@
 package de.fh.dortmund.model;
 
-import java.time.LocalDateTime;
 import java.util.*;
+
+import de.fh.dortmund.comparator.CarComparator;
 
 public class Location {
 
 	private String areaName;
 	private int zipcode;
-	private List<Car> car;
-	private LocalDateTime bookSlotTime;
-
-	public Location(String areaName, int zipcode, List<Car> car) {
-		this.areaName = areaName;
-		this.zipcode = zipcode;
-		this.car = car;
-	}
+	private List<EnergySource> energySource;
+	private String weather;
+	private PriorityQueue<Car> pqCar = new PriorityQueue<Car>(1, new CarComparator());
 
 	public String getAreaName() {
 		return areaName;
@@ -24,14 +20,32 @@ public class Location {
 		return zipcode;
 	}
 
-	public List<Car> getCar() {
-		return car;
+	public List<EnergySource> getEnergySource() {
+		return energySource;
 	}
 
-	public LocalDateTime getbookSlotTime() {
-//		bookSlotTime = LocalDateTime.now();
-		bookSlotTime = LocalDateTime.of(2023, 11, 18, 10, 30);
-		return bookSlotTime;
+	public String getWeather() {
+		return weather;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public void setZipcode(int zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public void setEnergySource(List<EnergySource> energySource) {
+		this.energySource = energySource;
+	}
+
+	public void setWeather(String weather) {
+		this.weather = weather;
+	}
+
+	public PriorityQueue<Car> getPqCar() {
+		return pqCar;
 	}
 
 }

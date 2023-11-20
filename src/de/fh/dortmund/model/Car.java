@@ -11,14 +11,6 @@ public class Car {
 	private LocalDateTime bookedTimeSlot;
 	private LocalDateTime finishTime;
 
-	public Car(String number, String ownerName, String brand, int batteryLevel, LocalDateTime bookedTimeSlot) {
-		this.number = ownerName;
-		this.ownerName = ownerName;
-		this.brand = brand;
-		this.batteryLevel = batteryLevel;
-		this.bookedTimeSlot = bookedTimeSlot;
-	}
-
 	public String getNumber() {
 		return number;
 	}
@@ -61,6 +53,22 @@ public class Car {
 		}
 
 		return finishTime;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public void setBatteryLevel(int batteryLevel) {
+		this.batteryLevel = batteryLevel;
+	}
+
+	public void setBookedTimeSlot(LocalDateTime bookedTimeSlot) {
+		this.bookedTimeSlot = bookedTimeSlot;
+	}
+
+	public void setFinishTime(LocalDateTime finishTime) {
+		this.finishTime = finishTime;
 	}
 
 }
