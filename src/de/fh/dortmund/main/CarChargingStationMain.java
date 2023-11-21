@@ -1,6 +1,7 @@
 package de.fh.dortmund.main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import de.fh.dortmund.chargeStation.ChargeStation;
 import de.fh.dortmund.exceptions.LocationNotAvailableException;
+import de.fh.dortmund.metadata.Metadata;
 import de.fh.dortmund.model.Car;
 import de.fh.dortmund.model.EnergySource;
 import de.fh.dortmund.model.Location;
@@ -18,6 +20,8 @@ import de.fh.dortmund.users.Admin;
 import de.fh.dortmund.users.User;
 
 public class CarChargingStationMain {
+
+	private static BufferedWriter fr1;
 
 	public static void main(String[] args) {
 
@@ -37,9 +41,11 @@ public class CarChargingStationMain {
 				car.setBrand(readArray[4]);
 				user.setCar(car);
 				userInput.add(user);
+				printLogs2("User " + user.getCar().getOwnerName() + " data created from file");
 			}
 		} catch (IOException e) {
 
+			printLogs1(e.getMessage());
 		}
 		Admin admin = new Admin();
 		List<Admin> adminList = new ArrayList<>();
@@ -47,7 +53,7 @@ public class CarChargingStationMain {
 		List<Location> locList = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader("admin.txt"))) {
 			String read = null;
-			// create new User
+			// create new Location
 			while ((read = br.readLine()) != null) {
 				Location loc = new Location();
 				EnergySource energy = new EnergySource();
@@ -65,32 +71,70 @@ public class CarChargingStationMain {
 				energyList.add(energy);
 				admin.setEnergy(energyList);
 				adminList.add(admin);
+				printLogs3("Admin " + admin.getAdminName() + " data created from file");
 			}
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			printLogs1(e.getMessage());
 		}
 
 		ChargeStation charge1 = new ChargeStation();
-		ChargeStation charge2 = new ChargeStation();
-		ChargeStation charge3 = new ChargeStation();
 		charge1.setLocations(adminList.get(0).getLocation());
-		charge2.setLocations(adminList.get(1).getLocation());
-		charge3.setLocations(adminList.get(1).getLocation());
-		StringBuilder error = new StringBuilder("");
 		try {
 			charge1.checkLocations(userInput.get(0));
 		} catch (LocationNotAvailableException ex) {
-			error = error.append(ex.getMessage());
-		} finally {
-
-			try (FileWriter fr = new FileWriter("ChargeStationlogs.txt")) {
-				fr.write(error.toString());
-			} catch (IOException e) {
-				System.out.println("Error while writing to log file" + e.getMessage());
-			}
-
+			printLogs1(ex.getMessage());
 		}
 
+		Metadata meta = new Metadata();
+		meta.writeMetatdata("AdminData.txt");
+		meta.writeMetatdata("ChargeStationMainlogs.txt");
+		meta.writeMetatdata("PriorityQueueLogs.txt");
+		meta.writeMetatdata("UserData.txt");
+		meta.writeMetatdata("LocationIsFull.txt");
+		meta.writeMetatdata("CalcWaitTimeForCars.txt");
+		
+		
+		//To delete any log file - pass "yes" to admin method
+		admin.deleteFile("No", "AdminData.txt");
+		
+		
+
+	}
+
+	public static void printLogs1(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("CarChargingStationMain.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			System.out.println("Error while writing to log file" + e.getMessage());
+		}
+	}
+
+	public static void printLogs2(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("UserData.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			printLogs1("Error while writing to log file" + e.getMessage());
+		}
+	}
+
+	public static void printLogs3(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("AdminData.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			printLogs1("Error while writing to log file" + e.getMessage());
+		}
 	}
 
 }

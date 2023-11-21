@@ -1,2 +1,2 @@
-Mr A,1,Area1,12345,Sunny,001,Solar,100w
-Mr B,2,Area2,23456,Sunny,002,Windmill,100w
+Mr A,1,Dortmund,12345,sunny,001,solar,100w
+Mr B,2,Essen,23456,sunny,002,windmill,100w

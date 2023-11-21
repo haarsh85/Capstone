@@ -1,5 +1,8 @@
 package de.fh.dortmund.chargeStation;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -13,6 +16,7 @@ import de.fh.dortmund.users.User;
 public class ChargeStation {
 
 	private List<Location> locations;
+	private BufferedWriter fr1;
 
 	public void checkLocations(User user) throws LocationNotAvailableException {
 		List<Location> locationList = getLocations();
@@ -32,24 +36,29 @@ public class ChargeStation {
 			locationTried++;
 			PriorityQueue<Car> pqCar = loc.getPqCar();
 			if (pqCar.isEmpty()) {
-				System.out.println("Slot is available and confirmed as there are no cars in the slot.");
+				printLogs1("Slot is available for the car " + car.getNumber()
+						+ " and confirmed as there are no cars in the slot.");
 				pqCar.add(car);
+				printLogs1(car.getNumber() + " has received a charging slot successfully");
 				addedToQueue = true;
 				break;
 			} else if (pqCar.size() == 1) {
 				WaitTimeData withinTime = checkwithinWaitTime(pqCar.peek(), car.getBookedTimeSlot());
 				if (withinTime.isWithinWaitTime()) {
 					try {
+						printLogs1(
+								pqCar.peek().getNumber() + "is currently charging and is almost done, please wait...");
 						Thread.sleep((withinTime.getWaitTime() * 3600));
 					} catch (InterruptedException e) {
-						System.out.println("System got interupted in between");
+						printLogs4("System got interupted in between");
 					}
-					System.out.println((pqCar.poll()).getNumber() + " Car is charged and removed");
-					System.out.println("Slot is confirmed for the car " + car.getNumber());
+					printLogs1((pqCar.poll()).getNumber() + " Car is charged and removed");
+					printLogs1("Slot is confirmed for the car " + car.getNumber());
 					pqCar.add(car);
+					printLogs1(car.getNumber() + " has received a charging slot successfully");
 					addedToQueue = true;
 				} else {
-					System.out.println("High Waiting Time, please try another location");
+					printLogs1(car.getNumber() + " High Waiting Time, please try another location");
 					continue;
 				}
 			}
@@ -58,13 +67,16 @@ public class ChargeStation {
 			WaitTimeData withinTime = checkwithinWaitTime(locationList.get(0).getPqCar().peek(),
 					car.getBookedTimeSlot());
 			try {
-				System.out.println("Since slots in all locations are full, please wait till slot is available.");
+				printLogs2("Since slots in all locations are full, trying again. Please wait till slot is available.");
 				Thread.sleep(withinTime.getWaitTime() * 3600);
+				printLogs2(locationList.get(0).getPqCar().peek().getNumber()
+						+ "is currently charging and is almost done, please wait...");
 				locationList.get(0).getPqCar().poll();
+				printLogs2("Slot confirmed for the car " + car.getNumber());
 				locationList.get(0).getPqCar().add(car);
-				System.out.println("Slot confirmed for the car " + car.getNumber());
+				printLogs2(car.getNumber() + " has received a charging slot successfully");
 			} catch (InterruptedException e) {
-				System.out.println("System got interupted in between");
+				printLogs4("System got interupted in between");
 			}
 
 		}
@@ -74,6 +86,7 @@ public class ChargeStation {
 		// Wait time is 5 minutes
 		WaitTimeData waitTime = new WaitTimeData();
 		long remainingTime = Duration.between(newBookingTime, pqCar.getApproximateTimeToGetCharged()).toMinutes();
+		printLogs3("Waiting Time for " + pqCar.getNumber() + " is " + remainingTime);
 		waitTime.setWaitTime(remainingTime);
 		if (remainingTime > 5) {
 			waitTime.setWithinWaitTime(false);
@@ -88,6 +101,54 @@ public class ChargeStation {
 
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
+	}
+
+	public void printLogs1(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("PriorityQueueLogs.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			printLogs4("Error while writing to log file" + e.getMessage());
+		}
+	}
+
+	public void printLogs2(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("LocationIsFull.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			printLogs4("Error while writing to log file" + e.getMessage());
+		}
+	}
+
+	public void printLogs3(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("CalcWaitTimeForCars.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			printLogs4("Error while writing to log file" + e.getMessage());
+		}
+	}
+
+	public void printLogs4(String msg) {
+
+		try {
+			fr1 = new BufferedWriter(new FileWriter("ChargeStation.txt", true));
+			fr1.write(msg);
+			fr1.newLine();
+			fr1.close();
+		} catch (IOException e) {
+			System.out.println("Error while writing to log file" + e.getMessage());
+		}
 	}
 
 }

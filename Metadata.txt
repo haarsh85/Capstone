@@ -1,0 +1,28 @@
+Size of AdminData.txt is 272
+AdminData.txt was last modified on  2023-11-21T21:14:03.009711527Z
+AdminData.txt is a regular file - true
+Size of ChargeStationMainlogs.txt is 0
+ChargeStationMainlogs.txt was last modified on  2023-11-21T19:45:19.061185254Z
+ChargeStationMainlogs.txt is a regular file - true
+Size of PriorityQueueLogs.txt is 408
+PriorityQueueLogs.txt was last modified on  2023-11-21T21:14:03.012832723Z
+PriorityQueueLogs.txt is a regular file - true
+Size of UserData.txt is 408
+UserData.txt was last modified on  2023-11-21T21:14:03.005600656Z
+UserData.txt is a regular file - true
+Error while writing to log fileLocationIsFull.txt
+Error while writing to log fileCalcWaitTimeForCars.txt
+Size of AdminData.txt is 340
+AdminData.txt was last modified on  2023-11-21T22:51:46.089060908Z
+AdminData.txt is a regular file - true
+Size of ChargeStationMainlogs.txt is 0
+ChargeStationMainlogs.txt was last modified on  2023-11-21T19:45:19.061185254Z
+ChargeStationMainlogs.txt is a regular file - true
+Size of PriorityQueueLogs.txt is 544
+PriorityQueueLogs.txt was last modified on  2023-11-21T22:51:46.093103576Z
+PriorityQueueLogs.txt is a regular file - true
+Size of UserData.txt is 510
+UserData.txt was last modified on  2023-11-21T22:51:46.08406474Z
+UserData.txt is a regular file - true
+Error while writing to log fileLocationIsFull.txt
+Error while writing to log fileCalcWaitTimeForCars.txt
