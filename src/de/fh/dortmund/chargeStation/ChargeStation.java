@@ -111,7 +111,7 @@ public class ChargeStation {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			printLogs4("Error while writing to log file" + e.getMessage());
+			printLogs4("Error while writing to log file " + e.getMessage());
 		}
 	}
 
@@ -123,7 +123,7 @@ public class ChargeStation {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			printLogs4("Error while writing to log file" + e.getMessage());
+			printLogs4("Error while writing to log file " + e.getMessage());
 		}
 	}
 
@@ -135,7 +135,7 @@ public class ChargeStation {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			printLogs4("Error while writing to log file" + e.getMessage());
+			printLogs4("Error while writing to log file " + e.getMessage());
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ChargeStation {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			System.out.println("Error while writing to log file" + e.getMessage());
+			System.out.println("Error while writing to log file " + e.getMessage());
 		}
 	}
 

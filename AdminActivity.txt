@@ -1,0 +1,2 @@
+Admin added new energy source for zipcode 12345
+Admin added new energy source for zipcode 12345

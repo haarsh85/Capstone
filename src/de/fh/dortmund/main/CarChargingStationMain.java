@@ -63,13 +63,13 @@ public class CarChargingStationMain {
 				loc.setAreaName(readArray[2]);
 				loc.setZipcode(Integer.parseInt(readArray[3]));
 				loc.setWeather(readArray[4]);
-				locList.add(loc);
-				admin.setLocation(locList);
 				energy.setId(readArray[5]);
 				energy.setSourceName(readArray[6]);
 				energy.setCapacity(readArray[7]);
 				energyList.add(energy);
-				admin.setEnergy(energyList);
+				loc.setEnergySource(energyList);
+				locList.add(loc);
+				admin.setLocation(locList);
 				adminList.add(admin);
 				printLogs3("Admin " + admin.getAdminName() + " data created from file");
 			}
@@ -92,12 +92,16 @@ public class CarChargingStationMain {
 		meta.writeMetatdata("UserData.txt");
 		meta.writeMetatdata("LocationIsFull.txt");
 		meta.writeMetatdata("CalcWaitTimeForCars.txt");
-		
-		
-		//To delete any log file - pass "yes" to admin method
+		meta.writeMetatdata("AdminActivity.txt");
+
+		// To delete any log file - pass "yes" to admin method
 		admin.deleteFile("No", "AdminData.txt");
-		
-		
+		// Add Delete Energy Source
+		EnergySource es = new EnergySource();
+		es.setId("211");
+		es.setSourceName("Hydro");
+		es.setCapacity("100w");
+		admin.addDeleteEnergySource(12345, es, "add", charge1);
 
 	}
 

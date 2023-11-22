@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import de.fh.dortmund.ManageFiles.ManageFiles;
+import de.fh.dortmund.chargeStation.ChargeStation;
 import de.fh.dortmund.model.EnergySource;
 import de.fh.dortmund.model.Location;
 
@@ -14,7 +15,6 @@ public class Admin {
 	private String adminName;
 	private String adminID;
 	private List<Location> location;
-	private List<EnergySource> energy;
 	private BufferedWriter fr1;
 
 	public void deleteFile(String input, String file) {
@@ -41,22 +41,33 @@ public class Admin {
 		}
 	}
 
-	/* public void addDeleteEnergySource(int zipcode, EnergySource energy, String input) {
+	public void addDeleteEnergySource(int zipcode, EnergySource energy, String input, ChargeStation charge) {
+		List<Location> locList = charge.getLocations();
 		if ("Add".equalsIgnoreCase(input)) {
-			for (Location loc : getLocation()) {
+			for (Location loc : locList) {
 				if (zipcode == loc.getZipcode()) {
 					List<EnergySource> energyList = loc.getEnergySource();
 					energyList.add(energy);
 					loc.setEnergySource(energyList);
+					printLogs1("Admin added new energy source for zipcode " + zipcode);
+				}
+			}
+		} else if ("Delete".equalsIgnoreCase(input)) {
+			for (Location loc : locList) {
+				if (zipcode == loc.getZipcode()) {
+					List<EnergySource> energyList = loc.getEnergySource();
+					try {
+						energyList.removeIf(obj -> energy.getSourceName().equalsIgnoreCase(energy.getSourceName()));
+					} catch (NullPointerException ex) {
+						printLogs1(energy.getSourceName()
+								+ "Energy Source is not present in energy source List, hence can not be deleted for zipcode"
+								+ zipcode);
+					}
+
 				}
 			}
 		}
-		else if ("Delete".equalsIgnoreCase(input)) {
-			for(Location loc: getLocation()) {
-				
-			}
-		}
-	} */
+	}
 
 	public void printLogs1(String msg) {
 
@@ -92,14 +103,6 @@ public class Admin {
 
 	public void setLocation(List<Location> location) {
 		this.location = location;
-	}
-
-	public List<EnergySource> getEnergy() {
-		return energy;
-	}
-
-	public void setEnergy(List<EnergySource> energy) {
-		this.energy = energy;
 	}
 
 }
