@@ -19,7 +19,7 @@ public class Metadata {
 			writeMetadatatoLogs(filename + " was last modified on  " + attr.lastModifiedTime().toString());
 			writeMetadatatoLogs(filename + " is a regular file - " + attr.isRegularFile());
 		} catch (IOException e) {
-			writeMetadatatoLogs("Error while writing to log file" + e.getMessage());
+			writeMetadatatoLogs("Error while writing to log file " + e.getMessage());
 		}
 	}
 
@@ -28,7 +28,7 @@ public class Metadata {
 			fr.write(msg);
 			fr.newLine();
 		} catch (IOException e) {
-			System.out.println("Error while writing to log file" + e.getMessage());
+			System.out.println("Error while writing to log file " + e.getMessage());
 		}
 	}
 

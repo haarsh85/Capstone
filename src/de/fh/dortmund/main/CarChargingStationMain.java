@@ -113,7 +113,7 @@ public class CarChargingStationMain {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			System.out.println("Error while writing to log file" + e.getMessage());
+			System.out.println("Error while writing to log file " + e.getMessage());
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CarChargingStationMain {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			printLogs1("Error while writing to log file" + e.getMessage());
+			printLogs1("Error while writing to log file " + e.getMessage());
 		}
 	}
 
@@ -137,7 +137,7 @@ public class CarChargingStationMain {
 			fr1.newLine();
 			fr1.close();
 		} catch (IOException e) {
-			printLogs1("Error while writing to log file" + e.getMessage());
+			printLogs1("Error while writing to log file " + e.getMessage());
 		}
 	}
 
