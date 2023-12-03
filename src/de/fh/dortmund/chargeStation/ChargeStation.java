@@ -13,10 +13,26 @@ import de.fh.dortmund.model.Location;
 import de.fh.dortmund.model.WaitTimeData;
 import de.fh.dortmund.users.User;
 
-public class ChargeStation {
+public class ChargeStation implements Runnable {
 
 	private List<Location> locations;
 	private BufferedWriter fr1;
+	private User user;
+
+	@Override
+	public void run() {
+		try {
+			checkLocations(user);
+		} catch (LocationNotAvailableException ex) {
+			printLogs4(ex.getMessage());
+		}
+
+	}
+
+	public ChargeStation(List<Location> locations, User user) {
+		this.locations = locations;
+		this.user = user;
+	}
 
 	public void checkLocations(User user) throws LocationNotAvailableException {
 		List<Location> locationList = getLocations();
@@ -83,12 +99,12 @@ public class ChargeStation {
 	}
 
 	private WaitTimeData checkwithinWaitTime(Car pqCar, LocalDateTime newBookingTime) {
-		// Wait time is 5 minutes
+		// Wait time is 15 minutes
 		WaitTimeData waitTime = new WaitTimeData();
 		long remainingTime = Duration.between(newBookingTime, pqCar.getApproximateTimeToGetCharged()).toMinutes();
 		printLogs3("Waiting Time for " + pqCar.getNumber() + " is " + remainingTime);
 		waitTime.setWaitTime(remainingTime);
-		if (remainingTime > 5) {
+		if (remainingTime > 15) {
 			waitTime.setWithinWaitTime(false);
 		}
 		waitTime.setWithinWaitTime(true);
