@@ -6,5 +6,5 @@
 <p>Note: Please import the project as :
 
 Import > General > Project from Folder</p>
-<br>Description: In this task, have created priority queue for cars to book a slot for charging, have created user and admin by reading the data from respective files. Have created metadata for the project and have created log files for all classes</br>
+<br>Description: In this task, have created thread pool for car charging taking users from a blocking queue for booking slots. Also created a thread for charging batteries from different energy sources</br>
 
