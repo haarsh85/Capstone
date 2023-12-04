@@ -34,7 +34,7 @@ public class ChargeStation implements Runnable {
 		this.user = user;
 	}
 
-	public void checkLocations(User user) throws LocationNotAvailableException {
+	private void checkLocations(User user) throws LocationNotAvailableException {
 		List<Location> locationList = getLocations();
 		if (locationList != null) {
 			checkCarWaitingList(locationList, user.getCar());
@@ -119,7 +119,7 @@ public class ChargeStation implements Runnable {
 		this.locations = locations;
 	}
 
-	public void printLogs1(String msg) {
+	public synchronized void printLogs1(String msg) {
 
 		try {
 			fr1 = new BufferedWriter(new FileWriter("PriorityQueueLogs.txt", true));
@@ -131,7 +131,7 @@ public class ChargeStation implements Runnable {
 		}
 	}
 
-	public void printLogs2(String msg) {
+	public synchronized void printLogs2(String msg) {
 
 		try {
 			fr1 = new BufferedWriter(new FileWriter("LocationIsFull.txt", true));
@@ -143,7 +143,7 @@ public class ChargeStation implements Runnable {
 		}
 	}
 
-	public void printLogs3(String msg) {
+	public synchronized void printLogs3(String msg) {
 
 		try {
 			fr1 = new BufferedWriter(new FileWriter("CalcWaitTimeForCars.txt", true));
@@ -155,7 +155,7 @@ public class ChargeStation implements Runnable {
 		}
 	}
 
-	public void printLogs4(String msg) {
+	public synchronized void printLogs4(String msg) {
 
 		try {
 			fr1 = new BufferedWriter(new FileWriter("ChargeStation.txt", true));

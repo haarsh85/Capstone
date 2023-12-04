@@ -1,17 +1,19 @@
 package de.fh.dortmund.main;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import de.fh.dortmund.chargeStation.ChargeStation;
-import de.fh.dortmund.exceptions.LocationNotAvailableException;
 import de.fh.dortmund.metadata.Metadata;
 import de.fh.dortmund.model.Car;
 import de.fh.dortmund.model.EnergySource;
@@ -25,64 +27,102 @@ public class CarChargingStationMain {
 
 	public static void main(String[] args) {
 
-		List<User> userInput = new ArrayList<>();
-		String readData = null;
-		try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
-			// create new User
-			while ((readData = br.readLine()) != null) {
-				User user = new User();
-				Car car = new Car();
-				String[] readArray = readData.split(",");
-				car.setOwnerName(readArray[0]);
-				car.setNumber(readArray[1]);
-				car.setBookedTimeSlot(
-						LocalDateTime.parse(readArray[2], DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
-				car.setBatteryLevel(Integer.parseInt(readArray[3]));
-				car.setBrand(readArray[4]);
-				user.setCar(car);
-				userInput.add(user);
-				printLogs2("User " + user.getCar().getOwnerName() + " data created from file");
-			}
-		} catch (IOException e) {
-
-			printLogs1(e.getMessage());
-		}
+		BlockingQueue<User> userInput = new ArrayBlockingQueue<User>(10);
 		Admin admin = new Admin();
 		List<Admin> adminList = new ArrayList<>();
 		List<EnergySource> energyList = new ArrayList<>();
 		List<Location> locList = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader("admin.txt"))) {
-			String read = null;
-			// create new Location
-			while ((read = br.readLine()) != null) {
-				Location loc = new Location();
-				EnergySource energy = new EnergySource();
-				String[] readArray = read.split(",");
-				admin.setAdminName(readArray[0]);
-				admin.setAdminID(readArray[1]);
-				loc.setAreaName(readArray[2]);
-				loc.setZipcode(Integer.parseInt(readArray[3]));
-				loc.setWeather(readArray[4]);
-				energy.setId(readArray[5]);
-				energy.setSourceName(readArray[6]);
-				energy.setCapacity(readArray[7]);
-				energyList.add(energy);
-				loc.setEnergySource(energyList);
-				locList.add(loc);
-				admin.setLocation(locList);
-				adminList.add(admin);
-				printLogs3("Admin " + admin.getAdminName() + " data created from file");
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter Admin data");
+		while (true) {
+			Location loc = new Location();
+			EnergySource energy = new EnergySource();
+			System.out.println("Enter Admin Name");
+			String adminName = scan.nextLine();
+			admin.setAdminName(adminName);
+			System.out.println("Enter Admin ID");
+			String adminID = scan.nextLine();
+			admin.setAdminID(adminID);
+			System.out.println("Enter Area Name");
+			String area = scan.nextLine();
+			loc.setAreaName(area);
+			System.out.println("Enter Zipcode");
+			int zip = scan.nextInt();
+			loc.setZipcode(zip);
+			scan.nextLine();
+			System.out.println("Enter weather");
+			String weather = scan.nextLine();
+			loc.setWeather(weather);
+			System.out.println("Enter Energy source ID");
+			String sourceID = scan.nextLine();
+			energy.setId(sourceID);
+			System.out.println("Enter Source Name");
+			String sourceName = scan.nextLine();
+			energy.setSourceName(sourceName);
+			System.out.println("Enter capacity");
+			String capacity = scan.nextLine();
+			energy.setCapacity(capacity);
+			energyList.add(energy);
+			loc.setEnergySource(energyList);
+			locList.add(loc);
+			admin.setLocation(locList);
+			adminList.add(admin);
+			printLogs3("Admin " + admin.getAdminName() + " data received");
+			System.out.println("Do you to add more admin?");
+			String canContinue = scan.nextLine();
+			if (canContinue.equalsIgnoreCase("yes")) {
+				continue;
+			} else {
+				break;
 			}
-		} catch (IOException e) {
-			printLogs1(e.getMessage());
 		}
 
-		ChargeStation charge1 = new ChargeStation();
-		charge1.setLocations(adminList.get(0).getLocation());
+		while (true) {
+			User user = new User();
+			Car car = new Car();
+			System.out.println("Enter Car owner Name");
+			String carOwner = scan.nextLine();
+			car.setOwnerName(carOwner);
+			System.out.println("Enter Car number");
+			String carNumber = scan.nextLine();
+			car.setNumber(carNumber);
+			System.out.println("Enter Slot book time");
+			String bookTime = scan.nextLine();
+			car.setBookedTimeSlot(LocalDateTime.parse(bookTime, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+			System.out.println("Enter battery level");
+			int battery = scan.nextInt();
+			car.setBatteryLevel(battery);
+			System.out.println("Enter car brand");
+			String carBrand = scan.nextLine();
+			car.setBrand(carBrand);
+			user.setCar(car);
+			try {
+				userInput.put(user);
+			} catch (InterruptedException e) {
+				printLogs1(e.getMessage());
+			}
+			printLogs2("User " + user.getCar().getOwnerName() + " data received");
+			System.out.println("Do you want to add more users");
+			String addUsers = scan.nextLine();
+			if (addUsers.equalsIgnoreCase("yes")) {
+				continue;
+			} else {
+				break;
+			}
+		}
+		scan.close();
+		ExecutorService executor = Executors.newFixedThreadPool(3);
+		int adminCount = 0, userInputCount = 0;
 		try {
-			charge1.checkLocations(userInput.get(0));
-		} catch (LocationNotAvailableException ex) {
-			printLogs1(ex.getMessage());
+			while (adminCount < adminList.size() && userInputCount < userInput.size()) {
+				Runnable charge1;
+				charge1 = new ChargeStation(adminList.get(adminCount).getLocation(), userInput.take());
+				executor.execute(charge1);
+				adminCount++;
+				userInputCount++;
+			}
+		} catch (InterruptedException e) {
+			printLogs1(e.getMessage());
 		}
 
 		Metadata meta = new Metadata();
@@ -101,7 +141,7 @@ public class CarChargingStationMain {
 		es.setId("211");
 		es.setSourceName("Hydro");
 		es.setCapacity("100w");
-		admin.addDeleteEnergySource(12345, es, "add", charge1);
+		// admin.addDeleteEnergySource(12345, es, "add", charge1);
 
 	}
 
