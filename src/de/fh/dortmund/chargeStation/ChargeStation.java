@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.BlockingQueue;
 
 import de.fh.dortmund.exceptions.LocationNotAvailableException;
 import de.fh.dortmund.model.Car;
@@ -17,24 +18,26 @@ public class ChargeStation implements Runnable {
 
 	private List<Location> locations;
 	private BufferedWriter fr1;
-	private User user;
+	private BlockingQueue<User> user;
 
 	@Override
 	public void run() {
 		try {
-			checkLocations(user);
-		} catch (LocationNotAvailableException ex) {
+			while (user.size() != 0) {
+				checkLocations(user.take());
+			}
+		} catch (LocationNotAvailableException | InterruptedException ex) {
 			printLogs4(ex.getMessage());
 		}
 
 	}
 
-	public ChargeStation(List<Location> locations, User user) {
+	public ChargeStation(List<Location> locations, BlockingQueue<User> user) {
 		this.locations = locations;
 		this.user = user;
 	}
 
-	private void checkLocations(User user) throws LocationNotAvailableException {
+	private synchronized void checkLocations(User user) throws LocationNotAvailableException {
 		List<Location> locationList = getLocations();
 		if (locationList != null) {
 			checkCarWaitingList(locationList, user.getCar());
@@ -44,7 +47,7 @@ public class ChargeStation implements Runnable {
 
 	}
 
-	private void checkCarWaitingList(List<Location> locationList, Car car) {
+	private synchronized void checkCarWaitingList(List<Location> locationList, Car car) {
 
 		int locationTried = 0;
 		boolean addedToQueue = false;
@@ -63,7 +66,7 @@ public class ChargeStation implements Runnable {
 				if (withinTime.isWithinWaitTime()) {
 					try {
 						printLogs1(
-								pqCar.peek().getNumber() + "is currently charging and is almost done, please wait...");
+								pqCar.peek().getNumber() + " is currently charging and is almost done, please wait...");
 						Thread.sleep((withinTime.getWaitTime() * 3600));
 					} catch (InterruptedException e) {
 						printLogs4("System got interupted in between");
@@ -86,7 +89,7 @@ public class ChargeStation implements Runnable {
 				printLogs2("Since slots in all locations are full, trying again. Please wait till slot is available.");
 				Thread.sleep(withinTime.getWaitTime() * 3600);
 				printLogs2(locationList.get(0).getPqCar().peek().getNumber()
-						+ "is currently charging and is almost done, please wait...");
+						+ " is currently charging and is almost done, please wait...");
 				locationList.get(0).getPqCar().poll();
 				printLogs2("Slot confirmed for the car " + car.getNumber());
 				locationList.get(0).getPqCar().add(car);
@@ -98,11 +101,14 @@ public class ChargeStation implements Runnable {
 		}
 	}
 
-	private WaitTimeData checkwithinWaitTime(Car pqCar, LocalDateTime newBookingTime) {
+	private synchronized WaitTimeData checkwithinWaitTime(Car pqCar, LocalDateTime newBookingTime) {
 		// Wait time is 15 minutes
 		WaitTimeData waitTime = new WaitTimeData();
 		long remainingTime = Duration.between(newBookingTime, pqCar.getApproximateTimeToGetCharged()).toMinutes();
-		printLogs3("Waiting Time for " + pqCar.getNumber() + " is " + remainingTime);
+		if (remainingTime < 0) {
+			remainingTime = Duration.between(pqCar.getApproximateTimeToGetCharged(), newBookingTime).toMinutes();
+		}
+		printLogs3("Waiting Time for " + pqCar.getNumber() + " is " + remainingTime + " minutes.");
 		waitTime.setWaitTime(remainingTime);
 		if (remainingTime > 15) {
 			waitTime.setWithinWaitTime(false);

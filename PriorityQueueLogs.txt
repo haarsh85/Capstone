@@ -1,6 +1,18 @@
-Slot is available for the car ka1n100 and confirmed as there are no cars in the slot.
-ka1n100 has received a charging slot successfully
-Slot is available for the car ka1c600 and confirmed as there are no cars in the slot.
-Slot is available for the car ka6b500 and confirmed as there are no cars in the slot.
-ka6b500 has received a charging slot successfully
-ka1c600 has received a charging slot successfully
+Slot is available for the car ca1vb and confirmed as there are no cars in the slot.
+ca1vb has received a charging slot successfully
+ca1vbis currently charging and is almost done, please wait...
+ca1vb Car is charged and removed
+Slot is confirmed for the car ka23vc
+ka23vc has received a charging slot successfully
+ka23vcis currently charging and is almost done, please wait...
+ka23vc Car is charged and removed
+Slot is confirmed for the car hg23bg
+hg23bg has received a charging slot successfully
+hg23bgis currently charging and is almost done, please wait...
+hg23bg Car is charged and removed
+Slot is confirmed for the car th45dv
+th45dv has received a charging slot successfully
+th45dvis currently charging and is almost done, please wait...
+th45dv Car is charged and removed
+Slot is confirmed for the car yu34dc
+yu34dc has received a charging slot successfully
