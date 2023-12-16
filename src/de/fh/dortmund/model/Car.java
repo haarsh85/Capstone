@@ -45,11 +45,11 @@ public class Car {
 
 	public LocalDateTime getApproximateTimeToGetCharged() {
 		if (getBatteryLevel() <= 10) {
-			finishTime = (getBookedTimeSlot().plusMinutes(10));
+			finishTime = (getBookedTimeSlot().plusMinutes(20));
 		} else if (getBatteryLevel() > 10 && getBatteryLevel() <= 50) {
-			finishTime = (getBookedTimeSlot().plusMinutes(5));
+			finishTime = (getBookedTimeSlot().plusMinutes(10));
 		} else {
-			finishTime = (getBookedTimeSlot().plusMinutes(1));
+			finishTime = (getBookedTimeSlot().plusMinutes(5));
 		}
 
 		return finishTime;

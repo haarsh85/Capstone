@@ -1,0 +1,28 @@
+Location sr1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location ar2 reserved battery is being charged with energy source s2
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location ar2 reserved battery is being charged with energy source s2
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source 1
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source 1
+Reserved battery is charged now.
+Location ar2 reserved battery is being charged with energy source s2
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location a1 reserved battery is being charged with energy source 1
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source s1
+Reserved battery is charged now.
+Location ar1 reserved battery is being charged with energy source 1
+Reserved battery is charged now.

@@ -12,7 +12,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
+import de.fh.dortmund.chargeStation.ChargeReserveBatteries;
 import de.fh.dortmund.chargeStation.ChargeStation;
 import de.fh.dortmund.metadata.Metadata;
 import de.fh.dortmund.model.Car;
@@ -32,13 +34,17 @@ public class CarChargingStationMain {
 		List<Admin> adminList = new ArrayList<>();
 		adminList = getAdminData();
 		userInput = getUserData();
-		ExecutorService executor = Executors.newFixedThreadPool(3);
+		ExecutorService executor = Executors.newCachedThreadPool();
 		int adminCount = 0;
 		while (adminCount < adminList.size()) {
 			Runnable charge;
 			charge = new ChargeStation(adminList.get(adminCount).getLocation(), userInput);
-			charge.run();
 			executor.execute(charge);
+			adminCount++;
+		}
+		adminCount = 0;
+		while (adminCount < adminList.size()) {
+			chargeAlternateBatteries(adminList.get(adminCount).getLocation());
 			adminCount++;
 		}
 
@@ -66,10 +72,10 @@ public class CarChargingStationMain {
 
 	}
 
-	public static void printLogs1(String msg) {
+	public static void printLogs(String msg, String fileName) {
 
 		try {
-			fr1 = new BufferedWriter(new FileWriter("CarChargingStationMain.txt", true));
+			fr1 = new BufferedWriter(new FileWriter(fileName, true));
 			fr1.write(msg);
 			fr1.newLine();
 			fr1.close();
@@ -78,40 +84,13 @@ public class CarChargingStationMain {
 		}
 	}
 
-	public static void printLogs2(String msg) {
-
-		try {
-			fr1 = new BufferedWriter(new FileWriter("UserData.txt", true));
-			fr1.write(msg);
-			fr1.newLine();
-			fr1.close();
-		} catch (IOException e) {
-			printLogs1("Error while writing to log file " + e.getMessage());
-		}
-	}
-
-	public static void printLogs3(String msg) {
-
-		try {
-			fr1 = new BufferedWriter(new FileWriter("AdminData.txt", true));
-			fr1.write(msg);
-			fr1.newLine();
-			fr1.close();
-		} catch (IOException e) {
-			printLogs1("Error while writing to log file " + e.getMessage());
-		}
-	}
-
 	public static List<Admin> getAdminData() {
 
-		Admin admin = new Admin();
 		List<Admin> adminList = new ArrayList<>();
 		System.out.println("Enter Admin data");
 		while (true) {
-			List<EnergySource> energyList = new ArrayList<>();
+			Admin admin = new Admin();
 			List<Location> locList = new ArrayList<>();
-			Location loc = new Location();
-			EnergySource energy = new EnergySource();
 			System.out.println("Enter Admin Name");
 			String adminName = scan.nextLine();
 			admin.setAdminName(adminName);
@@ -119,6 +98,8 @@ public class CarChargingStationMain {
 			String adminID = scan.nextLine();
 			admin.setAdminID(adminID);
 			while (true) {
+				Location loc = new Location();
+				List<EnergySource> energyList = new ArrayList<>();
 				System.out.println("Enter Area Name");
 				String area = scan.nextLine();
 				loc.setAreaName(area);
@@ -129,16 +110,26 @@ public class CarChargingStationMain {
 				System.out.println("Enter weather");
 				String weather = scan.nextLine();
 				loc.setWeather(weather);
-				System.out.println("Enter Energy source ID");
-				String sourceID = scan.nextLine();
-				energy.setId(sourceID);
-				System.out.println("Enter Source Name");
-				String sourceName = scan.nextLine();
-				energy.setSourceName(sourceName);
-				System.out.println("Enter capacity");
-				String capacity = scan.nextLine();
-				energy.setCapacity(capacity);
-				energyList.add(energy);
+				while (true) {
+					EnergySource energy = new EnergySource();
+					System.out.println("Enter Energy source ID");
+					String sourceID = scan.nextLine();
+					energy.setId(sourceID);
+					System.out.println("Enter Source Name");
+					String sourceName = scan.nextLine();
+					energy.setSourceName(sourceName);
+					System.out.println("Enter capacity");
+					String capacity = scan.nextLine();
+					energy.setCapacity(capacity);
+					energyList.add(energy);
+					System.out.println("Do you want to add more energy source");
+					String cont1 = scan.nextLine();
+					if (cont1.equalsIgnoreCase("yes")) {
+						continue;
+					} else {
+						break;
+					}
+				}
 				loc.setEnergySource(energyList);
 				locList.add(loc);
 				System.out.println("Do you want to add more locations");
@@ -151,7 +142,7 @@ public class CarChargingStationMain {
 			}
 			admin.setLocation(locList);
 			adminList.add(admin);
-			printLogs3("Admin " + admin.getAdminName() + " data received");
+			printLogs("Admin " + admin.getAdminName() + " data received", "AdminData.txt");
 			System.out.println("Do you to add more admin?");
 			String canContinue = scan.nextLine();
 			if (canContinue.equalsIgnoreCase("yes")) {
@@ -189,9 +180,9 @@ public class CarChargingStationMain {
 			try {
 				userInput.put(user);
 			} catch (InterruptedException e) {
-				printLogs1(e.getMessage());
+				printLogs(e.getMessage(), "CarChargingStationMain.txt");
 			}
-			printLogs2("User " + user.getCar().getOwnerName() + " data received");
+			printLogs("User " + user.getCar().getOwnerName() + " data received", "UserData.txt");
 			System.out.println("Do you want to add more users");
 			String addUsers = scan.nextLine();
 			if (addUsers.equalsIgnoreCase("yes")) {
@@ -202,6 +193,24 @@ public class CarChargingStationMain {
 		}
 		scan.close();
 		return userInput;
+	}
+
+	public static void chargeAlternateBatteries(List<Location> locationList) {
+		for (Location loc : locationList) {
+			ChargeReserveBatteries chargeBatteries = new ChargeReserveBatteries(loc);
+			FutureTask<Integer> future = new FutureTask<Integer>(chargeBatteries);
+			Thread th1 = new Thread(future);
+			try {
+				th1.start();
+				if (future.get() == 1) {
+					printLogs("Reserved battery is charged now.", "ChargeReservedBatteries.txt");
+				}
+			} catch (Exception e) {
+				printLogs("System got interupted in between", "ChargeStation.txt");
+			}
+			future = null;
+			chargeBatteries = null;
+		}
 	}
 
 }
