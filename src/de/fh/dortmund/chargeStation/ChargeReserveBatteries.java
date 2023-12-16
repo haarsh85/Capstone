@@ -21,15 +21,17 @@ public class ChargeReserveBatteries implements Callable<Integer> {
 
 		for (EnergySource src : loc.getEnergySource()) {
 			printLogs("Location " + loc.getAreaName() + " reserved battery is being charged with energy source "
-					+ src.getSourceName());
+					+ src.getSourceName(), "ChargeReservedBatteries.txt");
+			printLogs("Location " + loc.getAreaName() + " available energy source -  "
+					+ src.getSourceName(), "EnergySource.txt");
 		}
 		return 1;
 	}
 
-	public synchronized void printLogs(String msg) {
+	public synchronized void printLogs(String msg, String file) {
 
 		try {
-			fr1 = new BufferedWriter(new FileWriter("ChargeReservedBatteries.txt", true));
+			fr1 = new BufferedWriter(new FileWriter(file, true));
 			fr1.write(msg);
 			fr1.newLine();
 			fr1.close();

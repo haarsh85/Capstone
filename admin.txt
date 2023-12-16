@@ -1,2 +1,0 @@
-Mr A,1,Dortmund,12345,sunny,001,solar,100w
-Mr B,2,Essen,23456,sunny,002,windmill,100w

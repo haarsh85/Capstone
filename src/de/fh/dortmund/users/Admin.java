@@ -1,9 +1,11 @@
 package de.fh.dortmund.users;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import de.fh.dortmund.ManageFiles.ManageFiles;
 import de.fh.dortmund.chargeStation.ChargeStation;
@@ -16,6 +18,8 @@ public class Admin {
 	private String adminID;
 	private List<Location> location;
 	private BufferedWriter fr1;
+	private String logFilePattern = ".*\\.txt";
+	String logDirectoryPath = "../Capstone";
 
 	public void deleteFile(String input, String file) {
 		if ("Yes".equalsIgnoreCase(input)) {
@@ -64,6 +68,29 @@ public class Admin {
 								+ zipcode);
 					}
 
+				}
+			}
+		}
+	}
+
+	public void archieveLogFiles() {
+		Pattern pattern = Pattern.compile(logFilePattern);
+
+		// List all files in the log directory
+		File logDirectory = new File(logDirectoryPath);
+		File[] logFiles = logDirectory.listFiles();
+
+		if (logFiles != null) {
+			for (File file : logFiles) {
+				// Check if the file matches the regex pattern
+				if (pattern.matcher(file.getName()).matches()) {
+					zipFile("yes", file.getName());
+				}
+			}
+			
+			for(File file : logFiles) {
+				if (pattern.matcher(file.getName()).matches()) {
+					deleteFile("Yes", file.getName());
 				}
 			}
 		}

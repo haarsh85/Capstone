@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -38,9 +40,11 @@ public class ManageFiles {
 	}
 
 	public void archieve(String file) {
-		String[] fileFirstName = file.split(".");
+		String[] fileFirstName = file.split(Pattern.quote("."));
 		try {
-			ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(fileFirstName[0] + ".zip"));
+			ZipOutputStream zos = new ZipOutputStream(
+					new FileOutputStream(fileFirstName[0] + LocalDateTime.now().getDayOfMonth() + "-"
+							+ LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear() + ".zip"));
 			File fileToZip = new File(file);
 			FileInputStream fis = new FileInputStream(fileToZip);
 			ZipEntry zipEntry = new ZipEntry(fileToZip.getName());

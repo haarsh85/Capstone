@@ -1,11 +1,2 @@
-Slot is available for the car car 1
-car 1 has received a charging slot successfully
-car 1 is currently charging and is almost done, please wait...
-car 1 Car is charged and removed
-Slot is available for the car car 2
-car 2 has received a charging slot successfully
-car 3 High Waiting Time, please try another location. Leaving the Queue.
-car 2 is currently charging and is almost done, please wait...
-car 2 Car is charged and removed
-Slot is available for the car car 4
-car 4 has received a charging slot successfully
+Slot is available for the car 1
+1 has received a charging slot successfully

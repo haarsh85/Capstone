@@ -29,7 +29,9 @@ public class CarChargingStationMain {
 	private static Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) {
-
+		// Archieve all log files
+		Admin ad1 = new Admin();
+		ad1.archieveLogFiles();
 		BlockingQueue<User> userInput = new ArrayBlockingQueue<User>(10);
 		List<Admin> adminList = new ArrayList<>();
 		adminList = getAdminData();
@@ -63,12 +65,10 @@ public class CarChargingStationMain {
 		System.out.println("Do you want to perform admin task");
 		Admin admin = new Admin();
 		admin.deleteFile("No", "AdminData.txt");
-		// Add Delete Energy Source
-		EnergySource es = new EnergySource();
-		es.setId("211");
-		es.setSourceName("Hydro");
-		es.setCapacity("100w");
-		// admin.addDeleteEnergySource(12345, es, "add", charge1);
+
+		// To read any log file
+		User us = new User();
+		us.readLogFile("AdminData.txt");
 
 	}
 

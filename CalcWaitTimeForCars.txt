@@ -1,3 +1,0 @@
-Waiting Time for car 2 is 10 minutes.
-Waiting Time for car 3 is 20 minutes.
-Waiting Time for car 4 is 12 minutes.
