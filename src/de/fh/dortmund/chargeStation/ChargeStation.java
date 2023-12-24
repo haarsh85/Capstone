@@ -60,20 +60,20 @@ public class ChargeStation implements Runnable {
 			while (userCar.size() > 0) {
 				car = userCar.peek();
 				if (pqCar.size() == 0) {
-					printLogs("Slot is available for the car " + car.getNumber(), "PriorityQueueLogs.txt");
+					printLogs("Slot is available for the user " + car.getOwnerName() + " ( car: " + car.getNumber() + " )", "PriorityQueueLogs.txt");
 					pqCar.add(userCar.take());
-					printLogs(car.getNumber() + " has received a charging slot successfully", "PriorityQueueLogs.txt");
+					printLogs("Car " + car.getNumber() + " has received a charging slot successfully", "PriorityQueueLogs.txt");
 				} else {
 					withinTime = checkwithinWaitTime(pqCar.peek(), car);
 					if (withinTime.isWithinWaitTime()) {
 						printLogs(
-								pqCar.peek().getNumber() + " is currently charging and is almost done, please wait...",
+								"Car " + pqCar.peek().getNumber() + " is currently charging and is almost done, please wait...",
 								"PriorityQueueLogs.txt");
 						Thread.sleep((withinTime.getWaitTime()));
-						printLogs((pqCar.poll()).getNumber() + " Car is charged and removed", "PriorityQueueLogs.txt");
+						printLogs("Car " + (pqCar.poll()).getNumber() + " is charged and removed", "PriorityQueueLogs.txt");
 					} else {
 						printLogs(
-								car.getNumber() + " High Waiting Time, please try another location. Leaving the Queue.",
+								"High Waiting Time for User " + car.getOwnerName() + " ( car: " + car.getNumber() + " ), please try another location. Leaving the Queue.",
 								"PriorityQueueLogs.txt");
 						userCar.take();
 						continue;
@@ -94,7 +94,7 @@ public class ChargeStation implements Runnable {
 			remainingTime = Duration.between(pqCar.getApproximateTimeToGetCharged(), car.getBookedTimeSlot())
 					.toMinutes();
 		}
-		printLogs("Waiting Time for " + car.getNumber() + " is " + remainingTime + " minutes.",
+		printLogs("Waiting Time for user " + car.getOwnerName() + " ( car: " + car.getNumber() + " )" + " is " + remainingTime + " minutes.",
 				"CalcWaitTimeForCars.txt");
 		waitTime.setWaitTime(remainingTime);
 		if (remainingTime > 15) {
