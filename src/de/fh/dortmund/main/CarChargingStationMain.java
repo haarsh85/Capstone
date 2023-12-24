@@ -182,7 +182,14 @@ public class CarChargingStationMain {
 			} catch (InterruptedException e) {
 				printLogs(e.getMessage(), "CarChargingStationMain.txt");
 			}
-			printLogs("User " + user.getCar().getOwnerName() + " data received", "UserData.txt");
+			printLogs("User data received for " + user.getCar().getOwnerName(), "UserData.txt");
+			String data = String.format("%nCar Number: %s%nBattery level: %s%nBooked time slot: %s%nApprox. finish time: %s%n", 
+					user.getCar().getNumber(), 
+					user.getCar().getBatteryLevel(), 
+					user.getCar().getBookedTimeSlot(), 
+					user.getCar().getApproximateTimeToGetCharged());
+			printLogs(data, "UserData.txt");
+			
 			System.out.println("Do you want to add more users");
 			String addUsers = scan.nextLine();
 			if (addUsers.equalsIgnoreCase("yes")) {
