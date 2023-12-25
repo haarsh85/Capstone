@@ -1,4 +1,4 @@
-package de.fh.dortmund.model;
+package main.java.de.fh.dortmund.model;
 
 public class WaitTimeData {
 

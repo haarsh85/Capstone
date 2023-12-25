@@ -1,4 +1,4 @@
-package de.fh.dortmund.metadata;
+package main.java.de.fh.dortmund.metadata;
 
 import java.io.BufferedWriter;
 import java.io.File;

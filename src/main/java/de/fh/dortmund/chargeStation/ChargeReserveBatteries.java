@@ -1,12 +1,12 @@
-package de.fh.dortmund.chargeStation;
+package main.java.de.fh.dortmund.chargeStation;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-import de.fh.dortmund.model.EnergySource;
-import de.fh.dortmund.model.Location;
+import main.java.de.fh.dortmund.model.EnergySource;
+import main.java.de.fh.dortmund.model.Location;
 
 public class ChargeReserveBatteries implements Callable<Integer> {
 

@@ -1,8 +1,8 @@
-package de.fh.dortmund.comparator;
+package main.java.de.fh.dortmund.comparator;
 
 import java.util.Comparator;
 
-import de.fh.dortmund.model.Car;
+import main.java.de.fh.dortmund.model.Car;
 
 public class CarComparator implements Comparator<Car> {
 

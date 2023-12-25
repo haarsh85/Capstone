@@ -1,4 +1,4 @@
-package de.fh.dortmund.ManageFiles;
+package main.java.de.fh.dortmund.ManageFiles;
 
 import java.io.BufferedWriter;
 import java.io.File;

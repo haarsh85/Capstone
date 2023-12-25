@@ -1,4 +1,4 @@
-package de.fh.dortmund.main;
+package main.java.de.fh.dortmund.main;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,14 +14,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-import de.fh.dortmund.chargeStation.ChargeReserveBatteries;
-import de.fh.dortmund.chargeStation.ChargeStation;
-import de.fh.dortmund.metadata.Metadata;
-import de.fh.dortmund.model.Car;
-import de.fh.dortmund.model.EnergySource;
-import de.fh.dortmund.model.Location;
-import de.fh.dortmund.users.Admin;
-import de.fh.dortmund.users.User;
+import main.java.de.fh.dortmund.chargeStation.ChargeReserveBatteries;
+import main.java.de.fh.dortmund.chargeStation.ChargeStation;
+import main.java.de.fh.dortmund.metadata.Metadata;
+import main.java.de.fh.dortmund.model.Car;
+import main.java.de.fh.dortmund.model.EnergySource;
+import main.java.de.fh.dortmund.model.Location;
+import main.java.de.fh.dortmund.users.Admin;
+import main.java.de.fh.dortmund.users.User;
 
 public class CarChargingStationMain {
 

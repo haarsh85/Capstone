@@ -1,13 +1,15 @@
 Size of AdminData.log is 28
-AdminData.log was last modified on  2023-12-25T20:46:31.239112988Z
+AdminData.log was last modified on  2023-12-25T21:10:29.861268623Z
 AdminData.log is a regular file - true
 Error while writing to log file ChargeStationMainlogs.log
-Size of PriorityQueueLogs.log is 100
-PriorityQueueLogs.log was last modified on  2023-12-25T20:46:56.257479069Z
+Size of PriorityQueueLogs.log is 95
+PriorityQueueLogs.log was last modified on  2023-12-25T21:10:55.883007964Z
 PriorityQueueLogs.log is a regular file - true
-Size of UserData.log is 138
-UserData.log was last modified on  2023-12-25T20:46:52.683740031Z
+Size of UserData.log is 133
+UserData.log was last modified on  2023-12-25T21:10:53.571941452Z
 UserData.log is a regular file - true
 Error while writing to log file LocationIsFull.log
 Error while writing to log file CalcWaitTimeForCars.log
-Error while writing to log file AdminActivity.log
+Size of AdminActivity.log is 394
+AdminActivity.log was last modified on  2023-12-25T21:09:58.955768004Z
+AdminActivity.log is a regular file - true

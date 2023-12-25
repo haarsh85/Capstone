@@ -1,4 +1,4 @@
-package de.fh.dortmund.chargeStation;
+package main.java.de.fh.dortmund.chargeStation;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,11 +8,11 @@ import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import de.fh.dortmund.exceptions.LocationNotAvailableException;
-import de.fh.dortmund.model.Car;
-import de.fh.dortmund.model.Location;
-import de.fh.dortmund.model.WaitTimeData;
-import de.fh.dortmund.users.User;
+import main.java.de.fh.dortmund.exceptions.LocationNotAvailableException;
+import main.java.de.fh.dortmund.model.Car;
+import main.java.de.fh.dortmund.model.Location;
+import main.java.de.fh.dortmund.model.WaitTimeData;
+import main.java.de.fh.dortmund.users.User;
 
 public class ChargeStation implements Runnable {
 

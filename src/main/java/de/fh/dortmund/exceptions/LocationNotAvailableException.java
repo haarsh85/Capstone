@@ -1,4 +1,4 @@
-package de.fh.dortmund.exceptions;
+package main.java.de.fh.dortmund.exceptions;
 
 public class LocationNotAvailableException extends Exception {
 

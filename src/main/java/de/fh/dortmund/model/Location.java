@@ -1,8 +1,8 @@
-package de.fh.dortmund.model;
+package main.java.de.fh.dortmund.model;
 
 import java.util.*;
 
-import de.fh.dortmund.comparator.CarComparator;
+import main.java.de.fh.dortmund.comparator.CarComparator;
 
 public class Location {
 

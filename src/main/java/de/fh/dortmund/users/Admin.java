@@ -1,4 +1,4 @@
-package de.fh.dortmund.users;
+package main.java.de.fh.dortmund.users;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import de.fh.dortmund.ManageFiles.ManageFiles;
-import de.fh.dortmund.chargeStation.ChargeStation;
-import de.fh.dortmund.model.EnergySource;
-import de.fh.dortmund.model.Location;
+import main.java.de.fh.dortmund.ManageFiles.ManageFiles;
+import main.java.de.fh.dortmund.chargeStation.ChargeStation;
+import main.java.de.fh.dortmund.model.EnergySource;
+import main.java.de.fh.dortmund.model.Location;
 
 public class Admin {
 

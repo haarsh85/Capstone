@@ -1,10 +1,10 @@
-package de.fh.dortmund.users;
+package main.java.de.fh.dortmund.users;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import de.fh.dortmund.model.Car;
+import main.java.de.fh.dortmund.model.Car;
 
 public class User {
 
