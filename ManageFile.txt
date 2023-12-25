@@ -1,2 +1,0 @@
-AdminActivity.txt is not archieved
-AdminActivity.txt is now deleted.

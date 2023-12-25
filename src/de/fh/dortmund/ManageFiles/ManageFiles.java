@@ -65,7 +65,7 @@ public class ManageFiles {
 	public void printLogs1(String msg) {
 
 		try {
-			fr1 = new BufferedWriter(new FileWriter("ManageFile.txt", true));
+			fr1 = new BufferedWriter(new FileWriter("ManageFile.log", true));
 			fr1.write(msg);
 			fr1.newLine();
 			fr1.close();

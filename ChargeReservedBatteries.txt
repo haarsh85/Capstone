@@ -1,2 +1,0 @@
-Location 1 reserved battery is being charged with energy source 1
-Reserved battery is charged now.

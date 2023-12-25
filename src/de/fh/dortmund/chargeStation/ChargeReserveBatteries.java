@@ -21,9 +21,9 @@ public class ChargeReserveBatteries implements Callable<Integer> {
 
 		for (EnergySource src : loc.getEnergySource()) {
 			printLogs("Location " + loc.getAreaName() + " reserved battery is being charged with energy source "
-					+ src.getSourceName(), "ChargeReservedBatteries.txt");
+					+ src.getSourceName(), "ChargeReservedBatteries.log");
 			printLogs("Location " + loc.getAreaName() + " available energy source -  "
-					+ src.getSourceName(), "EnergySource.txt");
+					+ src.getSourceName(), "EnergySource.log");
 		}
 		return 1;
 	}

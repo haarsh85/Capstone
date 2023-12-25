@@ -1,2 +1,0 @@
-Slot is available for the car 1
-1 has received a charging slot successfully

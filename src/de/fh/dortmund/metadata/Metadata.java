@@ -24,7 +24,7 @@ public class Metadata {
 	}
 
 	private void writeMetadatatoLogs(String msg) {
-		try (BufferedWriter fr = new BufferedWriter(new FileWriter("Metadata.txt", true))) {
+		try (BufferedWriter fr = new BufferedWriter(new FileWriter("Metadata.log", true))) {
 			fr.write(msg);
 			fr.newLine();
 		} catch (IOException e) {

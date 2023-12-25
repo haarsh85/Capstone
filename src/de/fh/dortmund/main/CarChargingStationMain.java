@@ -53,22 +53,22 @@ public class CarChargingStationMain {
 		System.out.println("Creating metadata file");
 
 		Metadata meta = new Metadata();
-		meta.writeMetatdata("AdminData.txt");
-		meta.writeMetatdata("ChargeStationMainlogs.txt");
-		meta.writeMetatdata("PriorityQueueLogs.txt");
-		meta.writeMetatdata("UserData.txt");
-		meta.writeMetatdata("LocationIsFull.txt");
-		meta.writeMetatdata("CalcWaitTimeForCars.txt");
-		meta.writeMetatdata("AdminActivity.txt");
+		meta.writeMetatdata("AdminData.log");
+		meta.writeMetatdata("ChargeStationMainlogs.log");
+		meta.writeMetatdata("PriorityQueueLogs.log");
+		meta.writeMetatdata("UserData.log");
+		meta.writeMetatdata("LocationIsFull.log");
+		meta.writeMetatdata("CalcWaitTimeForCars.log");
+		meta.writeMetatdata("AdminActivity.log");
 
 		// To delete any log file - pass "yes" to admin method
 		System.out.println("Do you want to perform admin task");
 		Admin admin = new Admin();
-		admin.deleteFile("No", "AdminData.txt");
+		admin.deleteFile("No", "AdminData.log");
 
 		// To read any log file
 		User us = new User();
-		us.readLogFile("AdminData.txt");
+		us.readLogFile("AdminData.log");
 
 	}
 
@@ -142,7 +142,7 @@ public class CarChargingStationMain {
 			}
 			admin.setLocation(locList);
 			adminList.add(admin);
-			printLogs("Admin " + admin.getAdminName() + " data received", "AdminData.txt");
+			printLogs("Admin " + admin.getAdminName() + " data received", "AdminData.log");
 			System.out.println("Do you to add more admin?");
 			String canContinue = scan.nextLine();
 			if (canContinue.equalsIgnoreCase("yes")) {
@@ -180,16 +180,16 @@ public class CarChargingStationMain {
 			try {
 				userInput.put(user);
 			} catch (InterruptedException e) {
-				printLogs(e.getMessage(), "CarChargingStationMain.txt");
+				printLogs(e.getMessage(), "CarChargingStationMain.log");
 			}
-			printLogs("User data received for " + user.getCar().getOwnerName(), "UserData.txt");
+			printLogs("User data received for " + user.getCar().getOwnerName(), "UserData.log");
 			
 			String data = String.format("%nCar Number: %s%nBattery level: %s%nBooked time slot: %s%nApprox. finish time: %s%n", 
 					user.getCar().getNumber(), 
 					user.getCar().getBatteryLevel(), 
 					user.getCar().getBookedTimeSlot(), 
 					user.getCar().getApproximateTimeToGetCharged());
-			printLogs(data, "UserData.txt");
+			printLogs(data, "UserData.log");
 			
 			System.out.println("Do you want to add more users");
 			String addUsers = scan.nextLine();
@@ -211,10 +211,10 @@ public class CarChargingStationMain {
 			try {
 				th1.start();
 				if (future.get() == 1) {
-					printLogs("Reserved battery is charged now.", "ChargeReservedBatteries.txt");
+					printLogs("Reserved battery is charged now.", "ChargeReservedBatteries.log");
 				}
 			} catch (Exception e) {
-				printLogs("System got interupted in between", "ChargeStation.txt");
+				printLogs("System got interupted in between", "ChargeStation.log");
 			}
 			future = null;
 			chargeBatteries = null;

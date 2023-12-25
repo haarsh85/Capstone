@@ -30,7 +30,7 @@ public class ChargeStation implements Runnable {
 			}
 			checkLocations();
 		} catch (LocationNotAvailableException | InterruptedException ex) {
-			printLogs(ex.getMessage(), "ChargeStation.txt");
+			printLogs(ex.getMessage(), "ChargeStation.log");
 		}
 
 	}
@@ -60,28 +60,28 @@ public class ChargeStation implements Runnable {
 			while (userCar.size() > 0) {
 				car = userCar.peek();
 				if (pqCar.size() == 0) {
-					printLogs("Slot is available for the user " + car.getOwnerName() + " ( car: " + car.getNumber() + " )", "PriorityQueueLogs.txt");
+					printLogs("Slot is available for the user " + car.getOwnerName() + " ( car: " + car.getNumber() + " )", "PriorityQueueLogs.log");
 					pqCar.add(userCar.take());
-					printLogs("Car " + car.getNumber() + " has received a charging slot successfully", "PriorityQueueLogs.txt");
+					printLogs("Car " + car.getNumber() + " has received a charging slot successfully", "PriorityQueueLogs.log");
 				} else {
 					withinTime = checkwithinWaitTime(pqCar.peek(), car);
 					if (withinTime.isWithinWaitTime()) {
 						printLogs(
 								"Car " + pqCar.peek().getNumber() + " is currently charging and is almost done, please wait...",
-								"PriorityQueueLogs.txt");
+								"PriorityQueueLogs.log");
 						Thread.sleep((withinTime.getWaitTime()));
-						printLogs("Car " + (pqCar.poll()).getNumber() + " is charged and removed", "PriorityQueueLogs.txt");
+						printLogs("Car " + (pqCar.poll()).getNumber() + " is charged and removed", "PriorityQueueLogs.log");
 					} else {
 						printLogs(
 								"High Waiting Time for User " + car.getOwnerName() + " ( car: " + car.getNumber() + " ), please try another location. Leaving the Queue.",
-								"PriorityQueueLogs.txt");
+								"PriorityQueueLogs.log");
 						userCar.take();
 						continue;
 					}
 				}
 			}
 		} catch (Exception e) {
-			printLogs("System got interupted in between", "ChargeStation.txt");
+			printLogs("System got interupted in between", "ChargeStation.log");
 		}
 	}
 
@@ -95,7 +95,7 @@ public class ChargeStation implements Runnable {
 					.toMinutes();
 		}
 		printLogs("Waiting Time for user " + car.getOwnerName() + " ( car: " + car.getNumber() + " )" + " is " + remainingTime + " minutes.",
-				"CalcWaitTimeForCars.txt");
+				"CalcWaitTimeForCars.log");
 		waitTime.setWaitTime(remainingTime);
 		if (remainingTime > 15) {
 			waitTime.setWithinWaitTime(false);

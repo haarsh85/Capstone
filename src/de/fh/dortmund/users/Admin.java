@@ -18,7 +18,7 @@ public class Admin {
 	private String adminID;
 	private List<Location> location;
 	private BufferedWriter fr1;
-	private String logFilePattern = ".*\\.txt";
+	private String logFilePattern = ".*\\.log";
 	String logDirectoryPath = "../Capstone";
 
 	public void deleteFile(String input, String file) {
@@ -99,7 +99,7 @@ public class Admin {
 	public void printLogs1(String msg) {
 
 		try {
-			fr1 = new BufferedWriter(new FileWriter("AdminActivity.txt", true));
+			fr1 = new BufferedWriter(new FileWriter("AdminActivity.log", true));
 			fr1.write(msg);
 			fr1.newLine();
 			fr1.close();
