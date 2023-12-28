@@ -8,3 +8,5 @@
 Import > General > Project from Folder</p>
 <br>Description: In this task, have created thread pool for car charging taking users from a blocking queue for booking slots. Also created a thread for charging batteries from different energy sources</br>
 
+<br>Please add JUnit 5 libraries in project build path to run JUnits"</br>
+

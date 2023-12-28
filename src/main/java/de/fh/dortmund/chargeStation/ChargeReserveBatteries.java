@@ -19,13 +19,17 @@ public class ChargeReserveBatteries implements Callable<Integer> {
 
 	public synchronized int chargeBatteries() {
 
-		for (EnergySource src : loc.getEnergySource()) {
-			printLogs("Location " + loc.getAreaName() + " reserved battery is being charged with energy source "
-					+ src.getSourceName(), "ChargeReservedBatteries.log");
-			printLogs("Location " + loc.getAreaName() + " available energy source -  "
-					+ src.getSourceName(), "EnergySource.log");
+		if (loc.getEnergySource() != null) {
+			for (EnergySource src : loc.getEnergySource()) {
+				printLogs("Location " + loc.getAreaName() + " reserved battery is being charged with energy source "
+						+ src.getSourceName(), "ChargeReservedBatteries.log");
+				printLogs("Location " + loc.getAreaName() + " available energy source -  " + src.getSourceName(),
+						"EnergySource.log");
+			}
+			return 1;
+		} else {
+			return 0;
 		}
-		return 1;
 	}
 
 	public synchronized void printLogs(String msg, String file) {
