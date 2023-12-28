@@ -1,6 +1,7 @@
 package test.java.de.fh.dortmund.users;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class UsersTest {
 		User user = new User();
 		user.readLogFile("EnergySource.log");
 		assertNotNull(user);
+		assertNull(user.getCar());
 	}
 
 }

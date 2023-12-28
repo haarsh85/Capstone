@@ -47,6 +47,7 @@ public class ChargeStationTest {
 		ChargeStation cs = new ChargeStation(locList, userInput);
 		Thread th = new Thread(cs);
 		th.start();
+		assertNotNull(cs.getLocations());
 	}
 
 	@Test
