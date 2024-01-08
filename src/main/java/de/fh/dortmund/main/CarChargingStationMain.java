@@ -107,12 +107,12 @@ public class CarChargingStationMain {
 				int zip = scan.nextInt();
 				loc.setZipcode(zip);
 				scan.nextLine();
-				System.out.println("Enter weather (eg. Sunny, Windy, etc.): ");
+				System.out.println("Enter Weather (eg. Sunny, Windy, etc.): ");
 				String weather = scan.nextLine();
 				loc.setWeather(weather);
 				while (true) {
 					EnergySource energy = new EnergySource();
-					System.out.println("Enter Energy source ID (eg. ES001): ");
+					System.out.println("Enter Energy Source ID (eg. ES001): ");
 					String sourceID = scan.nextLine();
 					energy.setId(sourceID);
 					System.out.println("Enter Energy Source Name (eg.Solar, Hydro, Wind): ");
@@ -163,7 +163,7 @@ public class CarChargingStationMain {
 			System.out.println("Enter Car Owner Name");
 			String carOwner = scan.nextLine();
 			car.setOwnerName(carOwner);
-			System.out.println("Enter Car number");
+			System.out.println("Enter Car Number");
 			String carNumber = scan.nextLine();
 			car.setNumber(carNumber);
 			System.out.println("Enter Slot Book Date & Time in 24 Hours format (dd-mm-yyyy HH:mm (24 hours)): ");
