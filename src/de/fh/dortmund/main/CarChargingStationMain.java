@@ -107,7 +107,7 @@ public class CarChargingStationMain {
 				int zip = scan.nextInt();
 				loc.setZipcode(zip);
 				scan.nextLine();
-				System.out.println("Enter weather (eg. Sunny, Windy, etc.): ");
+				System.out.println("Enter Weather (eg. Sunny, Windy, etc.): ");
 				String weather = scan.nextLine();
 				loc.setWeather(weather);
 				while (true) {
@@ -160,10 +160,10 @@ public class CarChargingStationMain {
 		while (true) {
 			User user = new User();
 			Car car = new Car();
-			System.out.println("Enter Car owner Name");
+			System.out.println("Enter Car Owner Name");
 			String carOwner = scan.nextLine();
 			car.setOwnerName(carOwner);
-			System.out.println("Enter Car number");
+			System.out.println("Enter Car Number");
 			String carNumber = scan.nextLine();
 			car.setNumber(carNumber);
 			System.out.println("Enter Slot Book Date & Time in 24 Hours format (dd-mm-yyyy HH:mm (24 hours)): ");
