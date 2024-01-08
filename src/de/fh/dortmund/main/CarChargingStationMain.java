@@ -112,7 +112,7 @@ public class CarChargingStationMain {
 				loc.setWeather(weather);
 				while (true) {
 					EnergySource energy = new EnergySource();
-					System.out.println("Enter Energy source ID (eg. ES001): ");
+					System.out.println("Enter Energy Source ID (eg. ES001): ");
 					String sourceID = scan.nextLine();
 					energy.setId(sourceID);
 					System.out.println("Enter Energy Source Name (eg.Solar, Hydro, Wind): ");
