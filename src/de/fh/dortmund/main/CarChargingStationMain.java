@@ -143,7 +143,7 @@ public class CarChargingStationMain {
 			admin.setLocation(locList);
 			adminList.add(admin);
 			printLogs("Admin " + admin.getAdminName() + " data received", "AdminData.txt");
-			System.out.println("Do you to add more admins?");
+			System.out.println("Do you want to add more admins? (yes/no): ");
 			String canContinue = scan.nextLine();
 			if (canContinue.equalsIgnoreCase("yes")) {
 				continue;
@@ -183,7 +183,7 @@ public class CarChargingStationMain {
 				printLogs(e.getMessage(), "CarChargingStationMain.txt");
 			}
 			printLogs("User " + user.getCar().getOwnerName() + " data received", "UserData.txt");
-			System.out.println("Do you want to add more users");
+			System.out.println("Do you want to add more users? (yes/no): ");
 			String addUsers = scan.nextLine();
 			if (addUsers.equalsIgnoreCase("yes")) {
 				continue;
