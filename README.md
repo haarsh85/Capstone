@@ -7,6 +7,3 @@
 
 Import > General > Project from Folder</p>
 <br>Description:    In this assignment, we have used various user defined exception which is thrown based on the business logic. These exceptions are handled accordingly using try catch blocks.</br>
-
-<a>https://youtu.be/G1SDU3xXJ9c</a>
-(https://youtu.be/G1SDU3xXJ9c)
