@@ -13,6 +13,7 @@ import main.java.de.fh.dortmund.model.Location;
 
 public class ChargeReserveBatteriesTest {
 
+	//This test method is used to test charge battery functionality it will return 1 if location has energy source object 
 	@Test
 	public void chargeBatteriesTest() {
 		Location loc = new Location();
@@ -30,6 +31,7 @@ public class ChargeReserveBatteriesTest {
 		Assert.assertEquals(1, cb.chargeBatteries());
 	}
 
+	//This test method is used to test charge battery functionality it will return 0 if there are no energy sources for location
 	@Test
 	public void chargeBatteriesWhenNullTest() {
 		Location loc = new Location();
@@ -38,6 +40,7 @@ public class ChargeReserveBatteriesTest {
 		Assert.assertEquals(0, cb.chargeBatteries());
 	}
 
+	//This test method is used to test call method functionality it will return 1 if it has energy sources
 	@Test
 	public void callTest() {
 		Location loc = new Location();
